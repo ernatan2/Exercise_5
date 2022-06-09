@@ -6,7 +6,7 @@ do{\
 printf("Memory allocation problem\n"); \
 exit(1); \
 }while(0)
-#define nullPointerCheck(ptr) if(!ptr)  printf("The tree Isn't implaned\n"); return
+#define nullPointerCheck printf("The tree Isn't implaned\n"); return
 
 
 
@@ -41,7 +41,9 @@ void insertBST(BST* bst, int value) {
 }
 
 void printTreeInorder(BST* bst) {
-	nullPointerCheck(bst->root); //check if the leaf is NULL poinhter
+	if (!bst->root) {
+		nullPointerCheck;
+	} //check if the leaf is NULL poinhter
 	printTreeInorder(&bst->root->left); //goes to the left leaf
 	printf("%d ", bst->root->element); //prints the leaf
 	printTreeInorder(&bst->root->right); // goes to the right leaf
@@ -58,13 +60,17 @@ void treeDestroy(BST* bst) {
 }
 
 void destroyBST(BST* bst) {
-	nullPointerCheck(bst); 
+	if (!bst->root) {
+		nullPointerCheck;
+	}
 	treeDestroy(bst); //calling the recurseve function 
 	free(bst); // free the tree
 }
 
 int findIndexNFromLast(BST* bst, int N) {
-	nullPointerCheck(bst->root);
+	if (!bst->root) {
+		nullPointerCheck;
+	}
 	if (bst->root->right) { // going recursivly to the rightmost side to start counting from the largest number
 		N--;	
 		N = findIndexNFromLast(&bst->root->right, N); 
